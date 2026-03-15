@@ -9,14 +9,13 @@ module qam_modulator_top(
 logic [5:0] ip;
 
 logic signed [3:0] I,Q;
-logic signed [3:0] id,qd;
 logic [2:0] ip1,ip2;
 logic [5:0] phase;
 logic symbol_tick;
 
 logic signed [15:0] sin_out,cos_out;
 
-symbol_packer pkt_gen (
+packet_generator pkt_gen (
     .clk(clk),
     .rst(rst),
     .enable(enable),
@@ -27,12 +26,10 @@ bit_mapping mapper (
     .enable(enable),
     .i(I),
     .q(Q),
-    .id(id),
-    .qd(qd),
     .ip1(ip1),
     .ip2(ip2));
 
-phase_counter phase_gen (
+phase_counter phase_counter (
     .clk(clk),
     .rst(rst),
     .enable(enable),
@@ -44,7 +41,7 @@ sin_cos_rom carrier_rom (
     .sin_out(sin_out),
     .cos_out(cos_out));
 
-iq_mixer mixer (
+waveform_generator waveform_gen (
     .I(I),
     .Q(Q),
     .sin_in(sin_out),

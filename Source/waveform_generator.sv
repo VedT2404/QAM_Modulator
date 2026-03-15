@@ -1,5 +1,5 @@
 `timescale 1ns/1ps
-module iq_mixer (
+module waveform_generator (
     input  logic signed [3:0] I,[3:0] Q,
     input  logic signed [15:0] sin_in,[15:0] cos_in,
     output logic signed [23:0] wave_out

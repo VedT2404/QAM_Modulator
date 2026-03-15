@@ -21,7 +21,7 @@
 
 
 
-module symbol_packer(
+module packet_generator(
     input  logic clk,
     input  logic rst,
     input  logic bit_in,

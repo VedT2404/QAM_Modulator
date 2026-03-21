@@ -1,54 +1,45 @@
-`timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 15.03.2026 18:29:36
-// Design Name: 
-// Module Name: tb_qam_modulator_top
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
-`timescale 1ns / 1ps
+`timescale 1ns/1ps
 
 module tb_qam_modulator_top;
 
-logic clk,rst,enable;
+logic clk;
+logic rst;
+logic enable;
+
+logic bit_in;
+logic bit_valid;
+
 logic signed [23:0] wave_out;
 
-qam_modulator_top dut (
-.clk(clk),
-.rst(rst),
-.enable(enable),
-.wave_out(wave_out));
+qam_modulator_top dut(
+    .clk(clk),
+    .rst(rst),
+    .enable(enable),
+    .bit_in(bit_in),
+    .bit_valid(bit_valid),
+    .wave_out(wave_out)
+);
+
+initial clk = 0;
+always #2 clk = ~clk;
 
 initial begin
-clk = 0;
-forever #5 clk = ~clk;   // 100 MHz clock
+    rst = 1;
+    enable = 0;
+    bit_valid = 0;
+
+    #50;
+    rst = 0;
+    enable = 1;
+    bit_valid = 1;
+
+    #999999999;
+    $stop;
 end
 
-initial begin
-rst = 1;
-enable = 0;
-
-#50;
-rst = 0;
-enable = 1;
-
-#100000;
-
-$stop;
-
+always @(posedge clk) begin
+    bit_in <= $urandom % 2;
 end
+
 
 endmodule

@@ -21,24 +21,40 @@
 
 module bit_mapping(
     input  logic [5:0] ip,
-    input  logic enable,
-    output reg signed [3:0] i,
-    output reg signed [3:0] q,
-    output logic [2:0] ip1,ip2
-
+    output logic signed [3:0] i,
+    output logic signed [3:0] q
 );
 
-assign ip1 = ip[5:3];
-assign ip2 = ip[2:0];
+logic [2:0] i_bits;
+logic [2:0] q_bits;
+
 always_comb begin
-i=0;
-q=0;
 
+    i_bits = ip[5:3];
+    q_bits = ip[2:0];
 
-    if(enable) begin
-        i = (ip1 <<< 1) - 7;
-        q = (ip2 <<< 1) - 7;
-    end
+    case(i_bits)
+        3'd0: i = -7;
+        3'd1: i = -5;
+        3'd2: i = -3;
+        3'd3: i = -1;
+        3'd4: i =  1;
+        3'd5: i =  3;
+        3'd6: i =  5;
+        3'd7: i =  7;
+    endcase
+
+    case(q_bits)
+        3'd0: q = -7;
+        3'd1: q = -5;
+        3'd2: q = -3;
+        3'd3: q = -1;
+        3'd4: q =  1;
+        3'd5: q =  3;
+        3'd6: q =  5;
+        3'd7: q =  7;
+    endcase
+
 end
 
 endmodule

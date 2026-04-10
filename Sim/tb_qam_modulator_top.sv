@@ -6,7 +6,7 @@ logic clk;
 logic rst;
 logic enable;
 
-logic bit_in;
+
 logic bit_valid;
 
 logic signed [23:0] wave_out;
@@ -15,7 +15,6 @@ qam_modulator_top dut(
     .clk(clk),
     .rst(rst),
     .enable(enable),
-    .bit_in(bit_in),
     .bit_valid(bit_valid),
     .wave_out(wave_out)
 );
@@ -37,9 +36,7 @@ initial begin
     $stop;
 end
 
-always @(posedge clk) begin
-    bit_in <= $urandom % 2;
-end
+
 
 
 endmodule

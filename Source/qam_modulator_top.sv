@@ -2,7 +2,6 @@ module qam_modulator_top(
     input  logic clk,
     input  logic rst,
     input  logic enable,
-    input  logic bit_in,
     input  logic bit_valid,
     output logic signed [23:0] wave_out
 );
@@ -21,7 +20,7 @@ logic signed [15:0] sin_out, cos_out;
 packet_generator pkt (
     .clk(clk),
     .rst(rst),
-    .bit_in(bit_in),
+    .symbol_tick(symbol_tick),
     .bit_valid(bit_valid),
     .symbol(symbol),
     .symbol_valid(symbol_valid)
